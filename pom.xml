@@ -33,7 +33,7 @@
   <artifactId>ensembl-mart-runner</artifactId>
   <packaging>jar</packaging>
   <name>Ensembl Mart runner</name>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <description>Ensembl Mart runner.</description>
   <url>https://github.com/heuermh/ensembl-mart-runner</url>
   <inceptionYear>2021</inceptionYear>
@@ -41,7 +41,7 @@
     <connection>scm:git:git@github.com:heuermh/ensembl-mart-runner.git</connection>
     <developerConnection>scm:git:git@github.com:heuermh/ensembl-mart-runner.git</developerConnection>
     <url>git@github.com:heuermh/ensembl-mart-runner.git</url>
-    <tag>HEAD</tag>
+    <tag>ensembl-mart-runner-1.1</tag>
   </scm>
   <issueManagement>
     <system>GitHub</system>
