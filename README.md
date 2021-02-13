@@ -1,6 +1,8 @@
 # ensembl-mart-runner
 Ensembl Mart runner.
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.heuermh.ensemblmartrunner/ensembl-mart-runner.svg?maxAge=600)](http://search.maven.org/#search%7Cga%7C1%7Ccom.github.heuermh.ensemblmartrunner)
+
 ### Hacking ensembl-mart-runner
 
 Install
