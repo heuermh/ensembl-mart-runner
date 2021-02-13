@@ -29,6 +29,7 @@
     <artifactId>dsh-parent</artifactId>
     <version>23</version>
   </parent>
+  <groupId>com.github.heuermh.ensemblmartrunner</groupId>
   <artifactId>ensembl-mart-runner</artifactId>
   <packaging>jar</packaging>
   <name>Ensembl Mart runner</name>
