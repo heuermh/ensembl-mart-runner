@@ -38,6 +38,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import okio.BufferedSource;
+
 import org.dishevelled.commandline.ArgumentList;
 import org.dishevelled.commandline.CommandLine;
 import org.dishevelled.commandline.CommandLineParseException;
@@ -46,9 +48,6 @@ import org.dishevelled.commandline.Switch;
 import org.dishevelled.commandline.Usage;
 
 import org.dishevelled.commandline.argument.FileArgument;
-
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 
 /**
  * Ensembl Mart runner.
@@ -59,7 +58,6 @@ public final class EnsemblMartRunner implements Callable<Integer> {
     private final File inputMartXmlFile;
     private final File outputTextFile;
     private final OkHttpClient client = new OkHttpClient();
-    //private final Logger logger = LoggerFactory.getLogger(EnsemblMartRunner.class);
     private static final String BASE_URL = "http://www.ensembl.org/biomart/martservice?query=";
     private static final String USAGE = "ensembl-mart-runner -i input.mart.xml.gz -o output.txt.gz";
 
@@ -88,41 +86,18 @@ public final class EnsemblMartRunner implements Callable<Integer> {
             String xml = sb.toString();
             String url = BASE_URL + URLEncoder.encode(xml, "UTF-8");
 
-            //logger.info("url=" + url);
-
             // build request
             Request request = new Request.Builder()
                 .url(url)
                 .build();
 
-            //logger.info("request=" + request);
-
             // stream response to writer
             try (Response response = client.newCall(request).execute()) {
-
-                //logger.info("response=" + response);
-
-                try (BufferedReader streamReader = new BufferedReader(response.body().charStream())) {
-                    // block until at least one line is seen
-                    String line = streamReader.readLine();
-
-                    //int count = 1;
-                    while (line != null) {
+                try (BufferedSource source = response.body().source()) {
+                    for (String line; (line = source.readUtf8Line()) != null; ) {
                         writer.println(line);
-                        line = streamReader.readLine();
-                        //count++;
-                    }
-                    //logger.info("read " + count + " lines");
-                }
-                /*
-                  streamReader is not ready even though response is 200 OK
-
-                try (BufferedReader streamReader = new BufferedReader(response.body().charStream())) {
-                    while (streamReader.ready()) {
-                        writer.println(streamReader.readLine());
                     }
                 }
-                */
             }
             return 0;
         }
